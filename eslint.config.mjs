@@ -29,7 +29,17 @@ export default tseslint.config(
             '@typescript-eslint/no-explicit-any': 'off',
             '@typescript-eslint/no-floating-promises': 'warn',
             '@typescript-eslint/no-unsafe-argument': 'warn',
-            'prettier/prettier': ['error', { printWidth: 80 }],
+            'prettier/prettier': [
+                'error',
+                {},
+                {
+                    semi: true,
+                    trailingComma: 'all',
+                    singleQuote: true,
+                    printWidth: 80,
+                    tabWidth: 4,
+                },
+            ],
             '@typescript-eslint/no-unsafe-call': 'off',
             '@typescript-eslint/no-unused-vars': [
                 'error',
