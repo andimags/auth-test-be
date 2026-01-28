@@ -33,7 +33,7 @@ export class UserService {
         });
     }
 
-    async createUser(dto: CreateUserDto): Promise<UserResponseDto> {
+    async createUser(dto: CreateUserDto) {
         const newUser = await this.prisma.user.create({
             data: {
                 ...dto,
@@ -43,7 +43,7 @@ export class UserService {
 
         const { password: _password, ...result } = newUser;
 
-        return new UserResponseDto(result);
+        return result;
     }
 
     async updateUser(params: {
