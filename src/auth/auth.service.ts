@@ -25,7 +25,7 @@ export class AuthService {
                     user: result,
                     backendTokens: {
                         accessToken: await this.jwtService.signAsync(result, {
-                            expiresIn: '1hr',
+                            expiresIn: '20s',
                             secret: process.env.JWT_ACCESS_KEY
                         }),
                         refreshToken: await this.jwtService.signAsync(result, {
@@ -37,5 +37,23 @@ export class AuthService {
             }
 
             throw new UnauthorizedException;
+        }
+
+        async refresh(dto: any){
+            const { exp: _exp, iat: _iat, ...payload } = dto; // strip exp if it exists
+
+            return {
+                user: payload,
+                backendTokens: {
+                    accessToken: await this.jwtService.signAsync(payload, {
+                        expiresIn: '20s',
+                        secret: process.env.JWT_ACCESS_KEY
+                    }),
+                    refreshToken: await this.jwtService.signAsync(payload, {
+                        expiresIn: '7d',
+                        secret: process.env.JWT_REFRESH_KEY
+                    })
+                }
+            }
         }
 }
